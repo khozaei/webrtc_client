@@ -1,0 +1,28 @@
+div.wrapper {
+  margin: 0 auto;
+
+}
+
+video#stream1 {
+  width: 640px;
+}
+video#stream2 {
+  width: 640px;
+}
+video#stream3 {
+  width: 640px;
+}
+video#stream4 {
+  width: 640px;
+}
+
+
+div.controls {
+  margin: 12px;
+  text-align: center;
+}
+
+div.messages {
+  text-align: left;
+  font-size: small;
+}

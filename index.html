@@ -1,0 +1,59 @@
+<html> 
+  <head> 
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="adapter-latest.js"></script> 
+    <script type="text/javascript" src="webrtc.js"></script> 
+    <script type="text/javascript"> 
+      window.onload = function() { 
+        let vidstream1 = document.getElementById("stream1");
+        let vidstream2 = document.getElementById("stream2");
+        let vidstream3 = document.getElementById("stream3");
+        let vidstream4 = document.getElementById("stream4");
+        let config = {
+          'iceServers': [
+            { 'urls': 'stun:stun.l.google.com:19302' }
+          ]
+        };
+        webrtc.playStream(vidstream1,vidstream2,vidstream3,vidstream4, location.hostname, 5050, null, config, (msg) => {
+          addText(msg);
+        }, (errmsg) => {
+          console.error(errmsg);
+        });
+      };
+
+      function sendDataChannel() {
+        let elem = document.getElementById('example')
+        webrtc.sendDataChannel(elem.value);
+      }
+
+      function addText(message) {
+        let elem = document.getElementById('message')
+        let text = elem.innerHTML;
+        text += '<br>'
+        text += message;
+        elem.innerHTML = text;
+      }
+
+      function clearText() {
+        let elem = document.getElementById('message')
+        elem.innerHTML = '';
+      }
+    </script> 
+  </head> 
+ 
+  <body> 
+    <div class="wrapper">
+      <!-- muted を付けることで自動再生が有効になります -->
+      <video id="stream1" style="text-align: left;" autoplay playsinline controls muted>Your browser does not support video</video>
+      <video id="stream2" style="text-align: right;" autoplay playsinline controls muted>Your browser does not support video</video>
+      <video id="stream3" style="text-align: left;" autoplay playsinline controls muted>Your browser does not support video</video>
+      <video id="stream4" style="text-align: right;"autoplay playsinline controls muted>Your browser does not support video</video> 
+    </div>
+    <div class="controls">
+      <input id="example" type="text" name="example">
+      <button onclick="sendDataChannel()">send</button>
+      <button onclick="clearText()">clear</button>
+      <div id="message" class="messages"></div>
+    </div>
+  </body>
+</html>
